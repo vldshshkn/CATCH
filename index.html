@@ -233,7 +233,11 @@ animateStars();
         if (!started) {
           started = true;
           bgMusic.play();
-          re// startGame() будет вызвана после клика по кнопке
+          redocument.getElementById("startButton").addEventListener("click", () => {
+  document.getElementById("startScreen").style.display = "none";
+  bgMusic.play();
+  startGame();
+});
         }
       });
     });
