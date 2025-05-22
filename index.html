@@ -114,6 +114,15 @@ function animateStars() {
 
 animateStars();
 
+
+function startGame() {
+  caughtStreak = 0;
+  scoreboard.textContent = 'Поймано: 0 / 7';
+  bgMusic.currentTime = 0;
+  bgMusic.play();
+  gameInterval = setInterval(spawnFace, 1000);
+}
+
 </script>
 </head>
 <body>
@@ -301,6 +310,15 @@ function animateStars() {
 
 animateStars();
 
+
+function startGame() {
+  caughtStreak = 0;
+  scoreboard.textContent = 'Поймано: 0 / 7';
+  bgMusic.currentTime = 0;
+  bgMusic.play();
+  gameInterval = setInterval(spawnFace, 1000);
+}
+
 </script>
 
   <style>
@@ -369,6 +387,15 @@ animateStars();
       startGame();
     }
   });
+
+function startGame() {
+  caughtStreak = 0;
+  scoreboard.textContent = 'Поймано: 0 / 7';
+  bgMusic.currentTime = 0;
+  bgMusic.play();
+  gameInterval = setInterval(spawnFace, 1000);
+}
+
 </script>
 
 </body>
