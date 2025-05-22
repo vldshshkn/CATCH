@@ -354,5 +354,16 @@ animateStars();
   </div>
 </div>
 
+
+<script>
+  document.getElementById("startButton").addEventListener("click", function() {
+    const audio = document.getElementById("backgroundMusic");
+    if (audio) {
+      audio.play().catch(e => console.log("Audio play blocked:", e));
+    }
+    document.getElementById("startScreen").style.display = "none";
+  });
+</script>
+
 </body>
 </html>
