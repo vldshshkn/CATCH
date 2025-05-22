@@ -118,7 +118,14 @@ animateStars();
 </head>
 <body>
   <div id="title">Поймай Леру 7 раз подряд!</div>
-  <canvas id="stars"></canvas>
+  
+<div id="startScreen">
+  <h1>Молодец! Вот ещё одно задание.</h1>
+  <p>Поймай себя 7 раз подряд!</p>
+  <button id="startButton">Начать игру</button>
+</div>
+
+<canvas id="stars"></canvas>
   <div id="game">
     <div id="scoreboard">Поймано подряд: 0 / 7</div>
     <div id="message">
@@ -226,7 +233,7 @@ animateStars();
         if (!started) {
           started = true;
           bgMusic.play();
-          restartGame();
+          re// startGame() будет вызвана после клика по кнопке
         }
       });
     });
