@@ -6,13 +6,24 @@
   <title>Поймай Леру</title>
   <style>
     body {
+    position: relative;
       margin: 0;
       background: url('BACKGROUND.png') no-repeat center center fixed; background-size: cover;
       overflow: hidden;
       font-family: 'Press Start 2P', cursive;
       color: white;
     }
+    #stars {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+    }
+
     #game {
+      z-index: 1;
       position: relative;
       width: 100vw;
       height: 100vh;
@@ -54,10 +65,60 @@
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js">
+// Star animation on canvas
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+for (let i = 0; i < 100; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.5,
+    d: Math.random() * 0.5 + 0.2
+  });
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#fff";
+  ctx.shadowBlur = 5;
+  ctx.shadowColor = "#fff";
+  for (let i = 0; i < stars.length; i++) {
+    let s = stars[i];
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  moveStars();
+}
+
+function moveStars() {
+  for (let i = 0; i < stars.length; i++) {
+    let s = stars[i];
+    s.y += s.d;
+    if (s.y > canvas.height) {
+      s.y = 0;
+      s.x = Math.random() * canvas.width;
+    }
+  }
+}
+
+function animateStars() {
+  drawStars();
+  requestAnimationFrame(animateStars);
+}
+
+animateStars();
+
+</script>
 </head>
 <body>
   <div id="title">Поймай Леру 7 раз подряд!</div>
+  <canvas id="stars"></canvas>
   <div id="game">
     <div id="scoreboard">Поймано подряд: 0 / 7</div>
     <div id="message">
@@ -169,6 +230,55 @@
         }
       });
     });
-  </script>
+  
+// Star animation on canvas
+const canvas = document.getElementById('stars');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let stars = [];
+for (let i = 0; i < 100; i++) {
+  stars.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    r: Math.random() * 1.5 + 0.5,
+    d: Math.random() * 0.5 + 0.2
+  });
+}
+
+function drawStars() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "#fff";
+  ctx.shadowBlur = 5;
+  ctx.shadowColor = "#fff";
+  for (let i = 0; i < stars.length; i++) {
+    let s = stars[i];
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+  moveStars();
+}
+
+function moveStars() {
+  for (let i = 0; i < stars.length; i++) {
+    let s = stars[i];
+    s.y += s.d;
+    if (s.y > canvas.height) {
+      s.y = 0;
+      s.x = Math.random() * canvas.width;
+    }
+  }
+}
+
+function animateStars() {
+  drawStars();
+  requestAnimationFrame(animateStars);
+}
+
+animateStars();
+
+</script>
 </body>
 </html>
