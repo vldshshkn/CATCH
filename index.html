@@ -355,6 +355,9 @@ animateStars();
 </div>
 
 
+
+
+
 <script>
   document.getElementById("startButton").addEventListener("click", function() {
     const audio = document.getElementById("backgroundMusic");
@@ -362,6 +365,9 @@ animateStars();
       audio.play().catch(e => console.log("Audio play blocked:", e));
     }
     document.getElementById("startScreen").style.display = "none";
+    if (typeof startGame === "function") {
+      startGame();
+    }
   });
 </script>
 
