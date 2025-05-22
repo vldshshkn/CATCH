@@ -7,7 +7,7 @@
   <style>
     body {
       margin: 0;
-      background: black;
+      background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
       overflow: hidden;
       font-family: 'Press Start 2P', cursive;
       color: white;
@@ -54,6 +54,7 @@
     }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 </head>
 <body>
   <div id="title">Поймай Леру 7 раз подряд!</div>
@@ -100,7 +101,14 @@
       img.style.animationDuration = (2 + Math.random() * 2) + 's';
       game.appendChild(img);
 
-      const timer = setTimeout(() => game.removeChild(img), parseFloat(img.style.animationDuration) * 1000);
+      const timer = setTimeout(() => {
+        if (img.dataset.correct === "true") {
+          game.removeChild(img);
+          lose();
+        } else {
+          game.removeChild(img);
+        }
+      }, parseFloat(img.style.animationDuration) * 1000);
 
       img.addEventListener('click', () => {
         clearTimeout(timer);
@@ -114,7 +122,7 @@
           lose();
           return;
         }
-        scoreboard.textContent = `Поймано подряд: ${caughtStreak} / 7`;
+        scoreboard.textContent = `Поймано: ${caughtStreak} / 7`;
         if (caughtStreak >= 7) win();
       });
     }
@@ -123,6 +131,11 @@
       clearInterval(gameInterval);
       bgMusic.pause();
       winSound.play();
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
       message.style.display = 'block';
       resultText.textContent = 'Ты поймал(а) Леру 7 раз подряд!';
       setTimeout(() => {
@@ -135,13 +148,13 @@
       bgMusic.pause();
       loseSound.play();
       message.style.display = 'block';
-      resultText.textContent = 'Это был не тот человек. Еще раз?';
+      resultText.textContent = 'Ой, не вышло. Нужно поймать себя 7 раз подряд!';
     }
 
     function restartGame() {
       message.style.display = 'none';
       caughtStreak = 0;
-      scoreboard.textContent = 'Поймано подряд: 0 / 7';
+      scoreboard.textContent = 'Поймано: 0 / 7';
       bgMusic.currentTime = 0;
       bgMusic.play();
       gameInterval = setInterval(spawnFace, 1000);
